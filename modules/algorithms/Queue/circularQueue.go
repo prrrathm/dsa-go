@@ -19,19 +19,22 @@ func NewCircularQueue(size int) *CircularQueue {
 		count: 0,
 	}
 }
+func (q *CircularQueue) isEmpty() bool {
+	return q.count == 0
+}
+
+func (q *CircularQueue) isFull() bool {
+	return q.count == q.size
+}
 
 func (q *CircularQueue) Enqueue(value int) {
-	if q.count == q.size {
+	if q.isFull() {
 		fmt.Println("Queue is Full")
 		return
 	}
 	q.rear = (q.rear + 1) % q.size
 	q.items[q.rear] = value
 	q.count++
-}
-
-func (q *CircularQueue) isEmpty() bool {
-	return q.count == 0
 }
 
 func (q *CircularQueue) Dequeue() int {
@@ -49,4 +52,5 @@ func (q *CircularQueue) Peek() int {
 	if q.isEmpty() {
 		fmt.Println("Queue is Empty")
 	}
+	return q.items[q.front]
 }
